@@ -55,6 +55,7 @@
 
       <div class="page-header">
         <h1><a href="index.php">Instamojo Payment</a></h1>
+        <p class="lead">A test payment integration for instamojo payment gateway. Written in PHP</p>
       </div>
         
 

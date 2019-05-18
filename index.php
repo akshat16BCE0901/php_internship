@@ -30,7 +30,6 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/animate.css">
-		<link rel="shortcut icon" href="assets/images/favicon.jpg">
 		<script src="assets/js/wow.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -39,10 +38,6 @@
 			new WOW().init();
 		</script>
 		<style type="text/css">
-		*
-		{
-			font-family: 'Frutiger Bold';
-		}
 			body
 			{
 				scroll-behavior: smooth;
@@ -107,12 +102,13 @@
 				<div class="collapse navbar-collapse" id="myNavbar">
 				
 				<ul class="nav navbar-nav navbar-right">
-					<li style="padding-top: 10px;"><button class="btn scroll btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up</button></li>
-					<li style="padding-top: 10px; margin-left: 4px;"><button class="btn scroll btn-primary"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</button></li>
+					<li style="padding-top: 10px;"><button data-toggle="modal" data-target="#myModal" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up</button></li>
+					<li style="padding-top: 10px; margin-left: 4px;"><button data-toggle="modal" data-target="#myModal1"  class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</button></li>
 				</ul>
 				</div>
 			</div>
 		</nav>
+		<div class="row">
 		<section>
 			<h1 id="typewriter" align="center"></h1>
 		</section>
@@ -167,11 +163,20 @@
 				</div>
 			</div>
 		</section>
-		
-		<section id="loginregister">
-			<div data-wow-duration="2s" class="wow wobble col-md-4 col-md-offset-1" id="registerdiv">
-				<h3>Haven't Joined Yet.?? Register now!</h3>
-				<form action='register.php' method="post">
+	</div>
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title">Haven't Joined Yet.?? Register now!</h2>
+	      </div>
+	      <div class="modal-body">
+	      	<div id="registerdiv">
+				
+				<form action='register.php' method="post" enctype="multipart/form-data">
 					<table class="table table-striped table-hover">
 						<tr>
 							<td><h4>Enter user ID </h4></td>
@@ -185,7 +190,10 @@
 							<td><h4>Confirm password </h4></td>
 							<td><input required="required" type="password" name="confirmpass"></td>
 						</tr>
-
+						<tr>
+							<td><h4>Upload Profile Picture</h4></td>
+							<td><input type="file" name="image"></td>
+						</tr>
 						<tr>
 							<td class="text-center"><button class="btn btn-primary" type="submit">SUBMIT</button></td>
 							<td class="text-center"><button class="btn btn-primary" type="reset">RESET</button></td>
@@ -193,8 +201,26 @@
 					</table>
 				</form>
 			</div>
-			<div data-wow-duration="2s" class="wow wobble col-md-4 col-md-offset-2" id="logindiv">
-				<h3>Already Registered? Please Login</h3>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+	<div id="myModal1" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h2 class="modal-title">Login</h2>
+	      </div>
+	      <div class="modal-body">
+	      	<div id="registerdiv">
+				
 				<form action='login.php' method="post">
 					<table class="table table-striped table-hover">
 						<tr>
@@ -212,18 +238,29 @@
 					</table>
 				</form>
 			</div>
-		</section>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+		<div class="container">
+			<div>
+				<?php 
+
+        include 'footer.php';
+
+    ?>
+			</div>
+		</div>
 		<script type="text/javascript">
 		    const instance = new Typewriter('#typewriter', {
 		      strings: ["WELCOME TO MY INTERNSHIP PROJECT!!"],
 		      autoStart: true,
 		      loop:true,
 		    });
-		    $(".scroll").click(function() {
-			    $('html, body').animate({
-			        scrollTop: $("#registerdiv").offset().top
-			    }, 1000);
-			});
 
 		  </script>
 	</body>

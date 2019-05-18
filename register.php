@@ -18,7 +18,37 @@
 			if($result)
 			{
 				$_SESSION['user']=$user;
-				echo '<script>alert("Successfully Logged in");location.href="shop.php"</script>';
+				if(isset($_FILES['image']))
+				{
+			      $errors= array();
+			      $file_name = $_FILES['image']['name'];
+			      $file_size =$_FILES['image']['size'];
+			      $file_tmp =$_FILES['image']['tmp_name'];
+			      $file_type=$_FILES['image']['type'];
+			      $tt = explode('.',$_FILES['image']['name']);
+			      $file_ext=strtolower(end($tt));
+			      
+			      $extensions= array("jpeg","jpg","png");
+			      
+			      if(in_array($file_ext,$extensions)=== false){
+			         $errors[]="extension not allowed, please choose a JPG, JPEG or PNG file.";
+			      }
+			      
+			      if($file_size > 1048576){
+			         $errors[]='File size must be less than 1 MB';
+			      }
+			      
+			      if(empty($errors)==true){
+			      	$temp = explode(".", $_FILES["image"]["name"]);
+					$newfilename =$user . '.' . end($temp);
+			         move_uploaded_file($file_tmp,"assets/images/profiles/".$newfilename);
+			         echo "Success";
+			         echo '<script>alert("Successfully Registered");location.href="shop.php"</script>';
+			      }else{
+			         print_r($errors);
+			      }
+			    }
+				
 			}
 			else
 			{

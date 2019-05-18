@@ -29,7 +29,7 @@
         <p class="lead">A test payment integration for instamojo paypemnt gateway. Written in PHP</p>
       </div>
 
-      <h3 style="color:#6da552">Thank You, Payment successful</h3>
+      <h3 style="color:#6da552">Thank You, Payment succus!!</h3>
   
 
  <?php

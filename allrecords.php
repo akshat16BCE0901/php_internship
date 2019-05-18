@@ -56,7 +56,8 @@
 			<h1 align="center">All records</h1>
 		</section>
 		<section>
-			<div class="col-md-4 col-md-offset-1" id="generate">
+            <div class="row">
+			<div class="col-md-5 col-md-offset-1" id="generate">
                 <div>
                     <table cellpadding='10px'><tr>
                         <td><h4>Search by Invoice ID : </h4></td>
@@ -107,7 +108,7 @@
                     
                     ?>
 			</div>
-			<div class="col-md-4 col-md-offset-2" id="pay">
+			<div class="col-md-4 col-md-offset-1" id="pay">
 				<h3>Payment Details</h3>
                 <?php
 
@@ -139,6 +140,14 @@
                 
                 ?>
 			</div>
+        </div>
 		</section>
+        <section>
+        <?php 
+
+        include 'footer.php';
+
+    ?>
+        </section>
 	</body>
 </html>
