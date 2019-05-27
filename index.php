@@ -4,10 +4,6 @@
 	{
 		$_SESSION['randnum']=1;
 	}
-	if(isset($_SESSION['user']))
-	{
-		unset($_SESSION['user']);
-	}
 	require 'connect.php';
 
 	$conn = mysqli_connect($servername,$username,$password,$database);
@@ -34,6 +30,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 		<script src="https://unpkg.com/typewriter-effect/dist/core.js"></script>
+
 		<script type="text/javascript">
 			new WOW().init();
 		</script>
@@ -56,80 +53,28 @@
 				border-radius: 10px;
 				background: #c2d3ef;
 			}
-			section
+			.row
 			{
-				padding: 15px;
+				padding: 20px;
 			}
-			body
+			.carousel-caption
 			{
-				background: #D3CCE3;
-				background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);
-				background: linear-gradient(to right, #E9E4F0, #D3CCE3);
+				background-color: rgba(0,0,0,0.8);
 			}
-			.item img
+			.card
 			{
-				width: 1000px;
-				height: 800px;
+				background-color: #e3e3e3;
+				padding: 10px;
 			}
-			.sidelinks li a
-			{
-				font-size: 20px;
-				color:white;
 
-			}
-			.sidelinks li
-			{
-				list-style: none;
-			}
-			.sidebar
-			{
-				border-radius: 20px;
-				background-color: blue;
-			}
 		</style>
 	</head>
 	<body>
-		<nav class="navbar navbar-inverse" style="padding-bottom: 6px; padding-top: 6px;">
-			<div class="container-fluid">
-				<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>                        
-				</button>
-				<a class="navbar-brand" style="padding:0; margin-left:0;" href="#"><img src="logo.png" alt="Mawai Infotech Limited" /></a>
-				</div>
-				<div class="collapse navbar-collapse" id="myNavbar">
-				
-				<ul class="nav navbar-nav navbar-right">
-					<li style="padding-top: 10px;"><button data-toggle="modal" data-target="#myModal" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;Sign Up</button></li>
-					<li style="padding-top: 10px; margin-left: 4px;"><button data-toggle="modal" data-target="#myModal1"  class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>&nbsp;Login</button></li>
-				</ul>
-				</div>
-			</div>
-		</nav>
-		<div class="row">
-		<section>
-			<h1 id="typewriter" align="center"></h1>
-		</section>
-		<section>
-			<div class="col-md-4" class="sidebar" style="background-color: #332323;padding: 20px;"><ul class="sidelinks">
-				<li><a href="#">Clothing</a></li>
-				<li><a href="#">Stationary</a></li>
-				<li><a href="#">Computer and Accessories</a></li>
-				<li><a href="#">Mobile and Accessories</a></li>
-				<li><a href="#">Home Decor</a></li>
-				<li><a href="#">Shoes</a></li>
-				<li><a href="#">Men's Accessories</a></li>
-				<li><a href="#">Women's Accessories</a></li>
-				<li><a href="#">Office Furniture</a></li>
-				<li><a href="#">Wires and Routers</a></li>
-				<li><a href="#">Televisions<li>
-				<li><a href="#">Washing Machines</li>
-			</ul></div>
-			<div class="col-md-8" style="max-height: 500px;">
-				<div id="myCarousel" data-interval="2000" class="carousel slide" data-ride="carousel">
-  				<!-- Indicators -->
+		<?php include 'navbar.php'; ?>
+		<div style=" padding-top: 70px;" class="container-fluid">
+			<div class="row">
+				<div id="myCarousel" data-interval='2000' class="carousel slide" data-ride="carousel">
+				  <!-- Indicators -->
 				  <ol class="carousel-indicators">
 				    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
 				    <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -139,15 +84,27 @@
 				  <!-- Wrapper for slides -->
 				  <div class="carousel-inner">
 				    <div class="item active">
-				      <img src="assets/images/clothing.jpg" alt="Clothing">
+				      <img style="max-height: 500px; width: 100%;" src="assets/images/shopping1.jpg" alt="Shopping Image 1">
+				      <div class="carousel-caption">
+				        <h3>SALE - 50-60 % on familywear</h3>
+				        <p>Come fall in love with shopping</p>
+				      </div>
 				    </div>
 
 				    <div class="item">
-				      <img src="assets/images/stationary.png" alt="Stationary">
+				      <img style="max-height: 500px; width: 100%;" src="assets/images/shopping2.jpg" alt="Shopping Image 2">
+				      <div class="carousel-caption">
+				        <h3>LATEST CLUB ACCESSORIES</h3>
+				        <p>Hurry Up!! Stocks Limited.</p>
+				      </div>
 				    </div>
 
 				    <div class="item">
-				      <img src="assets/images/computers.jpg" alt="Computers and Accessories">
+				      <img style="max-height: 500px; width: 100%;" src="assets/images/shopping3.png" alt="Shopping image 3">
+				      <div class="carousel-caption">
+				        <h3>UNILEY NOW AVAILABLE !!!</h3>
+				        <p>Get 10% additional discount on first order!!</p>
+				      </div>
 				    </div>
 				  </div>
 
@@ -162,8 +119,155 @@
 				  </a>
 				</div>
 			</div>
-		</section>
-	</div>
+			
+			<div style="background-color: skyblue;" class="row">
+				<div align="center" class="col-md-3 card text-center">
+					<h3>Laptops and Accessories</h3>
+					<div align="center">
+						<img style="min-height: 300px; width:100%;" class="img img-responsive" src="assets/images/card-img-1.jpg" alt="Image 1">
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+				<div style="background-color: white;" class="col-md-3 card text-center">
+				
+					<h3>All brands available</h3>
+					<div  align="center" class="row">
+						<div class="col-md-6"><img class="img img-responsive" src="assets/images/icon-1.jpg" alt="Image 2"></div>
+						<div class="col-md-6"><img class="img img-responsive" src="assets/images/icon-2.jpg" alt="Image 2"></div>
+					</div>
+					<div align="center"  class="row">
+						<div class="col-md-6"><img class="img img-responsive" src="assets/images/icon-3.jpg" alt="Image 2"></div>
+						<div class="col-md-6"><img class="img img-responsive" src="assets/images/icon-4.jpg" alt="Image 2"></div>
+					</div>
+				</div>
+				<div class="col-md-1"></div>
+				<div class="col-md-3 card">
+					<h3>Latest Designs</h3>
+					<div id="myCarousel2" data-interval='2000' class="carousel slide" data-ride="carousel">
+				  <!-- Indicators -->
+				  <ol class="carousel-indicators">
+				    <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
+				    <li data-target="#myCarousel2" data-slide-to="1"></li>
+				    <li data-target="#myCarousel2" data-slide-to="2"></li>
+				  </ol>
+
+				  <!-- Wrapper for slides -->
+				  <div class="carousel-inner">
+				    <div class="item active">
+				      <img style="max-height: 310px; width: 100%;" src="assets/images/men.jpg" alt="Shopping Image 1">  
+				    </div>
+
+				    <div class="item">
+				      <img style="max-height: 310px; width: 100%;" src="assets/images/women.jpg" alt="Shopping Image 2">
+				    </div>
+
+				    <div class="item">
+				      <img style="max-height: 310px; width: 100%;" src="assets/images/children.jpg" alt="Shopping image 3">
+				    </div>
+				  </div>
+
+				  <!-- Left and right controls -->
+				  <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
+				    <span class="glyphicon glyphicon-chevron-left"></span>
+				    <span class="sr-only">Previous</span>
+				  </a>
+				  <a class="right carousel-control" href="#myCarousel2" data-slide="next">
+				    <span class="glyphicon glyphicon-chevron-right"></span>
+				    <span class="sr-only">Next</span>
+				  </a>
+				</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="row" style="background-color: white;">
+				<ul class="nav nav-pills nav-justified">
+				  <li class="active"><a data-toggle="tab" href="#home">Latest Kurti Designs</a></li>
+				  <li><a data-toggle="tab" href="#menu1">Pendrives Under 999/-</a></li>
+				  <li><a data-toggle="tab" href="#menu2">Fresh Arrivals for Men</a></li>
+				  <li><a data-toggle="tab" href="#menu3">Recommended for you</a></li>
+				  <li><a data-toggle="tab" href="#menu4">Menu 4</a></li>
+				  <li><a data-toggle="tab" href="#menu5">Menu 5</a></li>
+				  <li><a data-toggle="tab" href="#menu6">Menu 6</a></li>
+				</ul>
+
+				<div align="center" class="tab-content">
+				  <div id="home" class="tab-pane fade in active">
+				    <div class="row">
+				    	<div class="col-md-2"><img src="assets/images/kurti1.jpg" alt="Kurti" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/kurti2.jpg" alt="Kurti" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/kurti3.jpg" alt="Kurti" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/kurti4.jpg" alt="Kurti" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/kurti5.jpg" alt="Kurti" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/kurti6.jpg" alt="Kurti" class="img-responsive"></div>
+				    </div>
+				  </div>
+				  <div id="menu1" class="tab-pane fade">
+				    <div class="row">
+				    	<div class="col-md-2"><img src="assets/images/pd1.jpg" alt="Pendrive" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/pd2.jpg" alt="Pendrive" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/pd3.jpg" alt="Pendrive" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/pd4.jpg" alt="Pendrive" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/pd5.jpg" alt="Pendrive" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/pd6.jpg" alt="Pendrive" class="img-responsive"></div>
+				    </div>
+				  </div>
+				  <div id="menu2" class="tab-pane fade">
+				    <div class="row">
+				    	<div class="col-md-2"><img src="assets/images/men1.jpg" alt="Menswear" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/men2.jpg" alt="Menswear" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/men3.jpg" alt="Menswear" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/men4.jpg" alt="Menswear" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/men5.jpg" alt="Menswear" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/men6.jpg" alt="Menswear" class="img-responsive"></div>
+				    </div>
+				  </div>
+				  <div id="menu3" class="tab-pane fade">
+				    <div class="row">
+				    	<div class="col-md-2"><img src="assets/images/comp1.jpg" alt="Recommendations" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/comp2.jpg" alt="Recommendations" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/comp3.jpg" alt="Recommendations" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/comp4.jpg" alt="Recommendations" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/comp5.jpg" alt="Recommendations" class="img-responsive"></div>
+				    	<div class="col-md-2"><img src="assets/images/comp6.jpg" alt="Recommendations" class="img-responsive"></div>
+				    </div>
+				  </div>
+				  <div id="menu4" class="tab-pane fade">
+				    <h3>Menu 4</h3>
+				    <p>Some content in menu 4.</p>
+				  </div>
+				  <div id="menu5" class="tab-pane fade">
+				    <h3>Menu 5</h3>
+				    <p>Some content in menu 5.</p>
+				  </div>
+				  <div id="menu6" class="tab-pane fade">
+				    <h3>Menu 6</h3>
+				    <p>Some content in menu 6.</p>
+				  </div>
+				</div>
+			</div>
+			<div style="background-color: lightgreen;" id="contact" class="row">
+				<h1 style="font-size: 50px;" align="center">Contact Us</h1>
+				<div align="center" class="col-md-6">
+
+					<h2>MAWAI INFOTECH LTD,</h2>
+					<h3>A-164, Sector 63 Rd.</h3>
+					<h3>Sector 63, Noida</h3>
+					<h3><span><i class="glyphicon glyphicon-phone"></i></span>(+91)9629000816</h3>
+					<h4>Email Us at - <a style="color: black; font-size: 17px;" href="mailto:akshat.singhal2016@vitstudent.ac.in">akshat.singhal2016@vitstudent.ac.in</a></h4>
+				</div>
+				<div class="col-md-6">
+					<iframe style="width: 100%; height: 40vh;" class="img img-responsive" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.228557163921!2d77.37618441508238!3d28.62291128242161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ceff61f435049%3A0xa3e7780d94730f8c!2sMawai+Infotech+Ltd.!5e0!3m2!1sen!2sin!4v1558345096238!5m2!1sen!2sin"  frameborder="0" style="border:0" allowfullscreen></iframe>
+				</div>
+			</div>
+			<div class="footer row" align="center" style="background-color: rgba(0,0,0,0.8); color: white;">
+				<h3>COPYRIGHT &copy; AKSHAT SINGHAL</h3>
+			</div>
+		</div>
+
+
+
+
+
 	<div id="myModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
@@ -209,6 +313,9 @@
 
 	  </div>
 	</div>
+
+
+
 	<div id="myModal1" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
@@ -246,22 +353,5 @@
 
 	  </div>
 	</div>
-		<div class="container">
-			<div>
-				<?php 
-
-        include 'footer.php';
-
-    ?>
-			</div>
-		</div>
-		<script type="text/javascript">
-		    const instance = new Typewriter('#typewriter', {
-		      strings: ["WELCOME TO MY INTERNSHIP PROJECT!!"],
-		      autoStart: true,
-		      loop:true,
-		    });
-
-		  </script>
 	</body>
 </html>

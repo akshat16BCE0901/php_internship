@@ -4,8 +4,17 @@
         		<div class="r3_counter_box">
                     <i class="pull-left fa fa-dollar icon-rounded"></i>
                     <div class="stats">
-                      <h5><strong>$452</strong></h5>
-                      <span>Total Revenue</span>
+                      <h5><strong>Rs. <?php
+
+                      	$result = mysqli_query($conn,"select sum(price) from orders");
+                      	if($result)
+                      	{
+                      		$row = mysqli_fetch_array($result);
+                      		echo $row[0];
+                      	}
+
+                       ?></strong></h5>
+                      <span>Total Sales</span>
                     </div>
                 </div>
         	</div>
@@ -15,7 +24,7 @@
                     <div class="stats">
                       <h5><strong><?php
 
-                      	$result = mysqli_query($conn,"select count(*) from login");
+                      	$result = mysqli_query($conn,"select count(*) from login2");
                       	if($result)
                       	{
                       		$row = mysqli_fetch_array($result);
@@ -91,9 +100,9 @@
 					<div class="content-top-1">
 					<div class="col-md-6 top-content">
 						<h5>Invoice Amount remaining</h5>
-						<label><?php 
+						<label>Rs <?php 
 
-							$result = mysqli_query($conn,'select ((select sum(amount) from invoice)-(select sum(amountpaid) from invoicedetails)) as remaining from dual');
+							$result = mysqli_query($conn,'select IF(sum(price) IS NOT NULL,sum(price),0) from productdetails');
 	                      	if($result) 
 	                      	{
 	                      		$row = mysqli_fetch_array($result);
@@ -103,7 +112,7 @@
 					<div class="col-md-6 top-content1">	   
 						<div id="demo-pie-1" class="pie-title-center" data-percent="<?php
 
-	                      	$result = mysqli_query($conn,'select round(((select ((select sum(amount) from invoice)-(select sum(amountpaid) from invoicedetails)) as remaining from dual)/(select sum(amount) from invoice))*100) as fraction from dual');
+	                      	$result = mysqli_query($conn,'select round((select sum(price) from productdetails)/((select sum(price) from productdetails)+(select sum(price) from orders))*100)');
 	                      	if($result) 
 	                      	{
 	                      		$row = mysqli_fetch_array($result);

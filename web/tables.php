@@ -10,7 +10,7 @@
 				
 				<div class="bs-example table-responsive widget-shadow" data-example-id="bordered-table"> 
 					<div align="center">
-						<button class=" addnew btn btn-primary">ADD NEW USER</button>
+						<button class="addnew btn btn-primary">ADD NEW USER</button>
 					</div>
 					<h4>All Users in Database:</h4>
 					<table  class="table table-bordered">
@@ -20,12 +20,12 @@
 						<th>PASSWORD</th>
 						<th>isActive</th>
 						<th>cdate</th>
-						<th>isAdmin</th>
+						<th>Role</th>
 						<th>Change</th>
 					</tr>
 					<?php
 						$offset= ($pageno*3) - 3;
-						$rowcount = "SELECT count(*) from login";
+						$rowcount = "SELECT count(*) from login2";
 						$tt= mysqli_query($conn,$rowcount);
 						if($tt)
 						{
@@ -33,7 +33,7 @@
 							$count = $rr[0];
 							$num_row = ceil($count/3);
 						}
-						$query= "SELECT * from login limit $offset,3";
+						$query= "SELECT * from login2 limit $offset,3";
 						$result= mysqli_query($conn,$query);
 						if($result)
 						{
@@ -95,7 +95,8 @@
 						<th>Password</th>
 						<th>isActive</th>
 						<th>cdate (will be automatically updated)</th>
-						<th>isAdmin</th>
+						<th>Role</th>
+						<th>&nbsp;</th>
 					</tr>
 
 					<tr>
@@ -110,7 +111,7 @@
 						</td>
 						<td><input id="oldisactive" type="number" min="0" max="1" name="newisactive"></td>
 						<td><input id="oldcdate" type="text" name="newcdate" readonly="readonly" value="<?php echo date("Y-m-d") ?>"></td>
-						<td><input name="newisadmin" id="oldisadmin" type="number" min="0" max="1"></td>
+						<td><input name="newisadmin" id="oldisadmin" type="text"></td>
 						<td><button class="btn btn-sm btn-primary finalchange">Change</button></td>
 					</tr>
 				</table>
@@ -123,7 +124,7 @@
 		$(document).ready(function()
 		{
 
-			$(".delete").click(function()
+			$(".delete").unbind().click(function()
 			{
 				var a = confirm("Are you sure want to delete. The action cannot be undone !!!");
 				if(a)
@@ -190,6 +191,7 @@
 				var newactive = $("#oldisactive").val();
 				var newadmin = $("#oldisadmin").val();
 				var newdate = $("#oldcdate").val();
+				console.log(newactive + " "+ newadmin+ " " + newdate);
 				$.ajax({
 
 		            type : 'POST',

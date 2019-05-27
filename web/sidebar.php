@@ -1,6 +1,6 @@
 <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
     <!--left-fixed -navigation-->
-  <aside class="sidebar-left" style="overflow-y: auto;">
+  <aside class="sidebar-left">
       <nav class="navbar navbar-inverse">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
@@ -20,7 +20,7 @@
               </li>
                 <?php
 
-                  $query = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid,C.cdate from login as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid IS NULL";
+                  $query = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid,C.cdate from login2 as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid IS NULL";
                   $result = mysqli_query($conn,$query);
                   if($result)
                   {
@@ -29,7 +29,7 @@
                       echo "<li>
                           <a";
 
-                          if(strlen($row[5])>2)
+                          if(strlen($row[5])>6)
                           {
                             echo " class= 'masteranchor disanchor' ";
                           }
@@ -52,7 +52,7 @@
                           ";
                           }
                           echo "</a>";
-                          $query2 = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid,C.cdate from login as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid= ".$row[2];
+                          $query2 = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid,C.cdate from login2 as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid= ".$row[2];
                           $rr = mysqli_query($conn,$query2);
                           if($rr)
                           {

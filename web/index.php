@@ -287,7 +287,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 								</div>	
 							</a>
 							<ul class="dropdown-menu drp-mnu">
-								<li> <a onclick="location.href='../index.php'"><i class="fa fa-sign-out"></i> Logout</a> </li>
+								<li> <a onclick="location.href='../logout.php'"><i class="fa fa-sign-out"></i> Logout</a> </li>
 							</ul>
 						</li>
 					</ul>

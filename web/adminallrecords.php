@@ -16,6 +16,7 @@
                             <th>Total Amount</th>
                             <th>Amount Paid</th>
                             <th>Remaining</th>
+                            <th>&nbsp;</th>
                         </tr>
                         <?php 
 
@@ -32,14 +33,54 @@
                                                 <td>".$row[2]."</td>
                                                 <td>".$row[3]."</td>
                                                 <td>".$row[4]."</td>
+                                                <td><button class='toggledetail btn btn-primary'>Expand</button></td>
                                             </tr>";
+                                        ?>
+                                        <tr class="nr" style="display: none;">
+                                            <td colspan="6">
+                                                <div>
+                                                    <table class="table table-bordered">
+                
+                                                        <tr>
+                                                            <th>Invoice ID</th>
+                                                            <th>Amount Paid</th>
+                                                            <th>Deposit Date</th>
+                                                            <th>Mode of payment</th>
+                                                        </tr>
+                                                        <?php
+
+                                                           $query2 = "select A.invid,IFNULL(B.amountpaid,0),IFNULL(B.depositdate,0),B.mode from invoice as A left join invoicedetails as B on A.invid=B.invid where A.invid='$row[0]'";
+                                                            $result2 = mysqli_query($conn,$query2);
+                                                            if($result2)
+                                                            {
+                                                                while($row2 = mysqli_fetch_array($result2))
+                                                                {
+                                                                        echo "<tr>
+                                                                                <td>".$row2[0]."</td>
+                                                                                <td>".$row2[1]."</td>
+                                                                                <td>".$row2[2]."</td>
+                                                                                <td>".$row2[3]."</td>
+                                                                            </tr>";
+                                                                }
+                                                            }
+                                                            else{
+                                                                echo mysqli_error($conn);
+                                                            }
+
+                                                        ?>
+                                                    </table>
+                                                </div>   
+                                            </td>
+                                        </tr>
+
+                                        <?php 
                                 }
                             }
 
                         ?>
                     </table>
                 </div>
-                <div class="bs-example table-responsive widget-shadow" data-example-id="bordered-table"> 
+                <!-- <div class="bs-example table-responsive widget-shadow" data-example-id="bordered-table"> 
 
                     <h4>Invoices Details</h4>
                     <table class="table table-striped table-hover">
@@ -52,27 +93,27 @@
                         </tr>
                         <?php
 
-                           $query2 = "select A.invid,IFNULL(B.amountpaid,0),IFNULL(B.depositdate,0),B.mode from invoice as A left join invoicedetails as B on A.invid=B.invid";
-                            $result2 = mysqli_query($conn,$query2);
-                            if($result2)
-                            {
-                                while($row2 = mysqli_fetch_array($result2))
-                                {
-                                        echo "<tr>
-                                                <td>".$row2[0]."</td>
-                                                <td>".$row2[1]."</td>
-                                                <td>".$row2[2]."</td>
-                                                <td>".$row2[3]."</td>
-                                            </tr>";
-                                }
-                            }
-                            else{
-                                echo mysqli_error($conn);
-                            }
+                           // $query2 = "select A.invid,IFNULL(B.amountpaid,0),IFNULL(B.depositdate,0),B.mode from invoice as A left join invoicedetails as B on A.invid=B.invid";
+                           //  $result2 = mysqli_query($conn,$query2);
+                           //  if($result2)
+                           //  {
+                           //      while($row2 = mysqli_fetch_array($result2))
+                           //      {
+                           //              echo "<tr>
+                           //                      <td>".$row2[0]."</td>
+                           //                      <td>".$row2[1]."</td>
+                           //                      <td>".$row2[2]."</td>
+                           //                      <td>".$row2[3]."</td>
+                           //                  </tr>";
+                           //      }
+                           //  }
+                           //  else{
+                           //      echo mysqli_error($conn);
+                           //  }
 
                         ?>
                     </table>
-                </div>
+                </div> -->
                 
             </div>
             
@@ -114,6 +155,16 @@
     
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.js"> </script>
+    <script type="text/javascript">
+        
+        $(".toggledetail").unbind().click(function()
+        {
+
+            $(this).closest("tr").next("tr").toggle();
+            
+        });
+
+    </script>
     
 
         

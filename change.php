@@ -10,10 +10,9 @@
 	if($conn)
 	{
 		$id= $_POST['id'];
-		$newname = $_POST['newname'];
 		$newquantity = $_POST['newquantity'];
 		$newprice = $_POST['newprice'];
-		$query = "UPDATE `productdetails` SET `product_name`='$newname',`quantity`=$newquantity,`price`=$newprice WHERE `id`=".$id;
+		$query = "UPDATE `productdetails` SET `quantity`= $newquantity, `price`=$newprice WHERE `id`=".$id;
 		if(mysqli_query($conn,$query))
 		{
 			echo "Updated";

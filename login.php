@@ -1,11 +1,14 @@
 <?php 
 	session_start();
 	require 'connect.php';
-
+    if(!isset($_SESSION['randnum']))
+	{
+		$_SESSION['randnum']=1;
+	}
 	$conn = mysqli_connect($servername,$username,$password,$database);
-	$username = $_POST['user_id'];
-	$password = $_POST['password'];
-	$query = "select * from login where `user_id`='".$username."' and `password`='".$password."'";
+	$usernam = $_POST['user_id'];
+	$passwor = $_POST['password'];
+	$query = "select * from login2 where `user_id`='".$usernam."' and `password`='".$passwor."'";
 	if($conn)
 	{
 		$result = mysqli_query($conn,$query);
@@ -13,16 +16,36 @@
 		{
 			if(mysqli_num_rows($result)>0)
 			{
-				$_SESSION['user'] = $username;
+				$_SESSION['user'] = $usernam;
 				echo '<script>alert("Successfully Logged in");</script>';
 				$row = mysqli_fetch_array($result);
-				if($row[5]==1)
+				if($row[5]=='admin')
 				{
+					echo '<script>location.href="web/index.php"</script>';
+				}
+				elseif ($row[5]=='vendor') {
 					echo '<script>location.href="web/index.php"</script>';
 				}
 				else
 				{
-					echo '<script>location.href="shop.php"</script>';
+					if(isset($_SESSION['user']))
+					{
+						$a = 'PRDCTHD'.$_SESSION['user'].date("dmy").date("His").$_SESSION['randnum'];
+						$b = $_SESSION['user'];
+						$c = date("Y-m-d");
+						$q = "INSERT INTO `producthead`(`id`, `user_id`, `entry_date`) VALUES ('".$a."','".$b."','".$c."')";
+
+						if(mysqli_query($conn,$q))
+						{
+							$_SESSION['randnum']++;
+							$_SESSION['prdcthd'] = $a;
+						}
+						else
+						{
+							echo mysqli_error($conn);
+						}
+					}
+					echo '<script>location.href="index.php"</script>';
 				}
 			}
 			else

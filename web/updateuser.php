@@ -8,7 +8,7 @@
 		$id = $_POST['id'];
 		if($conn)
 		{
-			$query = "UPDATE login set `isactive`=$newactive, `isadmin`=$newadmin, `cdate`='$date' where id=$id";
+			$query = "UPDATE login2 set `isActive`=$newactive, `role`='$newadmin', `cdate`='$date' where id=$id";
 			$result=  mysqli_query($conn,$query);
 			if($result)
 			{

@@ -56,12 +56,12 @@
 							<td><h4>PASSWORD</h4></td>
 							<td><h4>isActive</h4></td>
 							<td><h4>cdate</h4></td>
-							<td><h4>isAdmin</h4></td>
+							<td><h4>Role</h4></td>
 							<td><h4>Change</h4></td>
 						</tr>
 						<?php
 							$offset= ($pageno*3) - 3;
-							$rowcount = "SELECT count(*) from login";
+							$rowcount = "SELECT count(*) from login2";
 							$tt= mysqli_query($conn,$rowcount);
 							if($tt)
 							{
@@ -69,7 +69,7 @@
 								$count = $rr[0];
 								$num_row = ceil($count/3);
 							}
-							$query= "SELECT * from login LIMIT $offset,3";
+							$query= "SELECT * from login2 LIMIT $offset,3";
 							$result= mysqli_query($conn,$query);
 							if($result)
 							{
@@ -135,7 +135,7 @@
 						<th>Password</th>
 						<th>isActive</th>
 						<th>cdate (will be automatically updated)</th>
-						<th>isAdmin</th>
+						<th>Role</th>
 					</tr>
 
 					<tr>
@@ -150,7 +150,7 @@
 						</td>
 						<td><input id="oldisactive" type="number" min="0" max="1" name="newisactive"></td>
 						<td><input id="oldcdate" type="text" name="newcdate" readonly="readonly" value="<?php echo date("Y-m-d") ?>"></td>
-						<td><input name="newisadmin" id="oldisadmin" type="number" min="0" max="1"></td>
+						<td><input name="newisadmin" id="oldisadmin" type="text"></td>
 						<td><button class="btn btn-primary finalchange">Change</button></td>
 					</tr>
 				</table>

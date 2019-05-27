@@ -43,7 +43,7 @@
                                 <option value="">---SELECT---</option>
                                  <?php 
 
-                                    $query = "select * from login";
+                                    $query = "select * from login2";
                                     $result = mysqli_query($conn,$query);
                                     if($result)
                                     {

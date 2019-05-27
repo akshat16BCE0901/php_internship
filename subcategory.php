@@ -10,7 +10,6 @@
 		if($result)
 		{
 			echo "INSERTED";
-			header("location:adminpanel.php");
 		}
 		else
 		{

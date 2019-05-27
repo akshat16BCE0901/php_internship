@@ -1,4 +1,7 @@
 <?php 
+session_start();
+$_SESSION['correct']=false;
+$_SESSION['randnum2']++;
 $invoiceid = $_POST["invoiceid"];
 $amount = $_POST["amount"];
 $user = $_POST["user"];

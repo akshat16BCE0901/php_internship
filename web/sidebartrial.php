@@ -32,7 +32,7 @@
             <ul class="sidebar-menu">
                 <?php
 
-                  $query = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid from login as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."'";
+                  $query = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid from login2 as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."'";
                   $result = mysqli_query($conn,$query);
                   if($result)
                   {
@@ -52,7 +52,7 @@
                           <span>".$row[4]."</span>
                           <span class='label label-primary pull-right'>new</span>
                           </a>";
-                          $query2 = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid from login as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid= ".$row[2];
+                          $query2 = "select A.user_id,B.user,B.menu,C.id,C.name,C.href,C.parentmenuid from login2 as A left join adminmenus as B on A.id = B.user inner join menulist as C on B.menu = C.id where user_id='".$_SESSION['user']."' and parentmenuid= ".$row[2];
                           $rr = mysqli_query($conn,$query2);
                           if($rr)
                           {

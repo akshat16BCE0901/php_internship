@@ -13,6 +13,14 @@
 	{
 		echo "Error - ".mysqli_error($conn);
 	}
+	if(isset($_SESSION['category']))
+	{
+		$link = "shopping.php?category=".$_SESSION['category'];
+	}
+	else
+	{
+		$link = 'index.php';
+	}
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,10 +44,6 @@
 				border: 2px solid black;
 				border-radius: 10px;
 			}
-			#dynamictable
-			{
-				background-color: lightblue;
-			}
 			.pgnum
 			{
 				text-align: center;
@@ -48,20 +52,19 @@
 				border-collapse: collapse;
 				padding: 2px;
 			}
+			body
+			{
+				margin-top: 80px;
+
+			}
 		</style>
 	</head>
 	<body>
+		<?php include 'navbar.php'; ?>
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
-					<table class="table table-striped table-hover">
-						<tr>
-							<th>Product Head ID</th>
-							<th>Product Entry Date</th>
-							<th>Total Quantity</th>
-							<th>Total Price</th>
-							<th>Edit your order</th>
-						</tr>
+						
 
 						<?php
 							$page = $_GET['page'];
@@ -73,40 +76,21 @@
 							{
 								$page1= ($page*3) - 3;
 							}	
-							$rowcount = "select count(distinct(A.id)) from producthead as A inner join productdetails as B on A.id = B.head_id where A.user_id='".$_SESSION['user']."'";
+							$rowcount = "select count(*) from producthead as A inner join productdetails as B on A.id=B.head_id where A.user_id='".$_SESSION['user']."'";
 							$tt= mysqli_query($conn,$rowcount);
 							if($tt)
 							{
 								$rr = mysqli_fetch_array($tt);
 								$count = $rr[0];
 							}
-								$query2 = "select A.id,A.user_id,A.entry_date,sum(quantity),round(sum(price),2) from producthead as A inner join productdetails as B on A.id = B.head_id where A.user_id='".$_SESSION['user']."' group by A.id limit $page1,3";
-								$result2 = mysqli_query($conn,$query2);
-								if($result2)
-								{
-									while($row2 = mysqli_fetch_array($result2))
-									{
-										echo "<tr>
-												<td class='nr'>".$row2[0]."</td>
-												<td>".$row2[2]."</td>
-												<td>".$row2[3]."</td>
-												<td>".$row2[4]."</td>
-												<td><button type='button' class='btn getdata btn-primary'>EDIT</button></td></tr>";
-									}
-								}
-								else
-								{
-									echo mysqli_error($conn);
-								}
+							include 'changeorder.php';
 							$num_row = ceil($count/3);
 
 						?>
-					</table>
 				</div>
 			</div>
 			<div align="center" class="text-center row">
 				<?php 
-					echo "Pages  - ";
 					for ($i=1; $i <=$num_row; $i++) { 
 						echo "<a class='pgnum btn btn-sm btn-primary' href='cart.php?page=$i'>&nbsp;$i&nbsp;</a>";
 					}
@@ -117,18 +101,13 @@
 					<h2>
 						Aren't over yet ?
 					</h2>
-					<button onclick="location.href='shop.php'" class="btn btn-primary btn-lg">Back to Dashboard!</button>
+					<button onclick="location.href='<?php echo($link); ?>'" class="btn btn-primary btn-lg">Back to Dashboard!</button>
 				</div>
-				<div align="center" class=" col-md-offset-2 col-md-4 proceed">
-					<h2>That's all? Proceed to pay !!</h2>
-					<button onclick="makepayment()" class="btn btn-primary btn-lg">Proceed to pay</button>
+				<div align="center" class=" col-md-offset-1 col-md-5 proceed">
+					<h2>That's all? Proceed to Checkout !!</h2>
+					<button onclick="location.href='payment.php'" class="btn btn-primary checkout btn-lg">Checkout</button>
 				</div>
 			</div><br><br>
-			<div class="row" id="color_change">
-				<div class="col-md-8 col-md-offset-2" id="edit_view">
-					
-				</div>
-			</div>
 			<div class="modal fade	" id="myModal2" role="dialog">
 			    <div class="modal-dialog modal-lg">
 			      	<div class="modal-content">
@@ -151,51 +130,7 @@
 
     ?>
 		</div>
-		<?php 
-
-			$query_price = "select ((select IF(sum(price) IS NOT NULL,sum(price),0) from productdetails as A inner join producthead as B on A.head_id = B.id where B.user_id='".$_SESSION['user']."')-(select IF(sum(amount) IS NOT NULL,sum(amount),0) from invoice where username='".$_SESSION['user']."')) as remaining from dual";
-			$resultprice= mysqli_query($conn,$query_price);
-			if($resultprice)
-			{
-				$price = mysqli_fetch_array($resultprice);
-				$amt = $price[0];
-			}
-			else
-			{
-				echo mysqli_error($conn);
-			}
-
-		?>
-		<script type="text/javascript">
-
-			function makepayment()
-			{
-				location.href = "<?php echo "payment.php?amt=$amt&uid=".$_SESSION['user']; ?>";
-			}
-
-			$(document).ready(function()
-			{
-				
-				$(".getdata").click(function() 
-				{
-				    var $item = $(this).closest("tr").find(".nr").text();
-				    $.ajax(
-				    {
-						type: "POST",
-						url: 'changeorder.php',
-						data: {
-							
-							headid : $item
-
-						},
-						success: function(data)
-						{
-							$("#edit_view").html(data);
-						}
-					});
-				 });
-			});
-		</script>
+		
 		
 	</body>
 </html>

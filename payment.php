@@ -1,24 +1,12 @@
 <?php 
 	session_start();
+
+	require 'connect.php';	
 	if(!isset($_SESSION['randnum2']))
 	{
 		$_SESSION['randnum2']=1;
 	}
-	// if(isset($_SESSION['user']))
-	// {
-	// 	unset($_SESSION['user']);
-	// }
-	require 'connect.php';
-
-	$conn = mysqli_connect($servername,$username,$password,$database);
-	if($conn)
-	{
-		echo "";
-	}
-	else
-	{
-		echo "Error - ".mysqli_error($conn);
-	}
+	
 	
 ?>
 <!DOCTYPE html>
@@ -37,7 +25,6 @@
 				padding: 10px;
 				border: 2px solid black;
 				border-radius: 10px;
-				background-color: #c5f2b0;
 			}
 			#pay
 			{
@@ -63,70 +50,92 @@
 		<section>
 			<h1 align="center">Welcome to the payment process!!</h1>
 		</section>
-		<section>
-			<div class="col-md-4 col-md-offset-1" id="generate">
-				<h3>Generate your invoice</h3>
-				<form method="post" action="submit.php">
-					<table class="table table-striped table-hover">
-						<tr>
-							<td><h4>Invoice ID </h4></td>
-							<td><input readonly="readonly" type="text" name="invid" value="<?php echo"INVID".$_SESSION['user'].date("dmy").$_SESSION['randnum2']; ?>"></td>
-						</tr>
-						<tr>
-							<td><h4>Invoice date </h4></td>
-							<td><input readonly="readonly" type="text" name="invdate" value="<?php echo(date("Y-m-d")) ?>"></td>
-						</tr>
-						<tr>
-							<td><h4>Amount to be paid</h4></td>
-							<td><input readonly="readonly" value="<?php echo $_GET['amt'] ?>" type="text" name="amount"></td>
-						</tr>
-						<tr>
-							<td><h4>User ID : </h4></td>
-							<td><input readonly="readonly" value="<?php echo $_GET['uid'] ?>" type="text" name="userid"></td>
-						</tr>
+		<?php
 
-						<tr>
-							<td colspan=2 class="text-center"><input class="btn btn-primary" type="submit" value="Generate" /></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<div class="col-md-4 col-md-offset-2" id="pay">
-				<h3>Make payement</h3>
-				<form method="post" action="instamojo/order.php">
-					<table class="table table-striped table-hover">
-						<tr>
-							<td><h4>Payment Date</h4></td>
-							<td><input readonly="readonly" type="text" name="depositdate" value="<?php echo(date("Y-m-d")) ?>"></td>
-						</tr>
-						<tr>
-							<td><h4>Enter Invoice ID </h4></td>
-							<td><input type="text" name="invid"></td>
-						</tr>
-						<tr>
-							<td><h4>Amount paying </h4></td>
-							<td><input required="required" type="text" name="depositamount"></td>
-						</tr>
-						<tr>
-							<td><h4>Mode of payement</h4></td>
-							<td><select name="mode">
-								<option value="">----SELECT----</option>
-								<option value="Cash">Cash</option>
-								<option value="Cheque">Cheque</option>
-								<option value="Demand Draft">Demand Draft</option>
-								<option value="Net Banking">Net Banking</option>
-								<option value="Card">Debit/Credit Card</option>
+			if(!isset($_SESSION['user']))
+			{
+				echo '<script>alert("Sign up/Log in to access dashboard");location.href="index.php"</script>';
+			}
+			else
+			{
+				$conn = mysqli_connect($servername,$username,$password,$database);
+				if($conn)
+				{
+					$price = 0;
+					$invoice = "INVID".$_SESSION['user'].date("dmy").$_SESSION['randnum2'];
+					$query = "select IF(sum(price) IS NOT NULL,sum(price),0) from producthead as A inner join productdetails as B on A.id=B.head_id where A.user_id='".$_SESSION['user']."'";
+					$result = mysqli_query($conn,$query);
+					if($result)
+					{
+						$row = mysqli_fetch_array($result);
+						$price = $row[0]; 
+					}
+					if($price)
+					{
+						$invdate = date("Y-m-d");
+						$u = $_SESSION['user'];
+						$quer = "INSERT INTO `invoice` VALUES ('$invoice',$price,'$invdate','$u')";
+				        if(mysqli_query($conn,$quer))
+				        {
+				            
+				            $_SESSION['correct'] = true;
+				            ?>
+								<section>
+									<div class="col-md-4 col-md-offset-2" id="pay">
+										<form method="post" action="instamojo/order.php">
+											<table class="table table-striped">
+												<tr>
+													<td>Invoice ID : </td>
+													<td><input type="text" readonly="readonly" name="invid" value="<?php echo($invoice); ?>"></td>
+												</tr>
+												<tr>
+													<td>Total Amount : </td>
+													<td><input type="text" readonly="readonly" name="depositamount" value="<?php echo($price); ?>"></td>
+												</tr>
+												<tr>
+													<td colspan="2"><input class="btn formpay btn-primary" type="submit" value="Confirm" /></td>
+												</tr>
+											</table>
+											
+											
+											
+										</form>
+									</div>
+								</section>
 
-							</select></td>
-						</tr>
 
-						<tr>
-							<td class="text-center"><input class="btn btn-primary" type="submit" /></td>
-							<td class="text-center"><input class="btn btn-primary" type="reset" /></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</section>
+				            <?php
+				        }
+				        else{
+				            echo mysqli_error($conn);
+				        }
+
+					}
+					else
+					{
+						?>
+
+							<section>
+								<div class="col-md-4 col-md-offset-2" id="pay">
+									<h3>Your cart is empty. Please add items into the cart first.</h3>
+									
+								</div>
+							</section>
+
+						<?php
+					}
+					
+				}
+				else
+				{
+					echo "Error - ".mysqli_error($conn);
+				}
+
+			}
+
+		?>
 	</body>
+	<script type="text/javascript">
+		$(".formpay").trigger('click');
+	</script>
 </html>
