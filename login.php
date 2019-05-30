@@ -17,7 +17,6 @@
 			if(mysqli_num_rows($result)>0)
 			{
 				$_SESSION['user'] = $usernam;
-				echo '<script>alert("Successfully Logged in");</script>';
 				$row = mysqli_fetch_array($result);
 				if($row[5]=='admin')
 				{

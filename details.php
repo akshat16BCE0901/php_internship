@@ -1,7 +1,6 @@
 <?php 
     session_start();
     require 'connect.php';
-
 	$conn = mysqli_connect($servername,$username,$password,$database);
 
 ?>
@@ -29,85 +28,185 @@
 			}
         </style>
 	</head>
-	<body style='background-color:#e3e3e3;'>
-        <div class="container">
-            <div class='row'>
-                <h2 align="center">All payment details</h2>
-            </div>
+	<body style='margin-top: 80px;'>
+        <?php include 'navbar.php'; ?>
+        <div align="center" class="container">
             <div class="row">
-                <div align="center" class="col-md-3 col-md-offset-3">
-                    <button class='btn btn-primary btn-lg print'>PRINT</button>
+                <h1>User Details</h1>
+            </div>
+        </div>
+        <div class='container'>
+            <div class='row'>
+                <div class="col-md-8">
+                    <div class='row'>
+                        <h2>All payment details</h2>
+                    </div>
+                    <div class="row">
+                        <?php
+
+                            if($conn)
+                            {
+                                $query = "select A.id,A.entry_date,sum(B.quantity),sum(B.price) from producthead as A inner join orders as B on A.id = B.head_id where user_id='".$_GET['k']."' group by A.id";
+                                $result = mysqli_query($conn,$query);
+                                if($result)
+                                {
+                                    ?>
+                                    <table style="background-color: #f2f2f2;" class="table table-striped table-hover">
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Date</th>
+                                            <th>Total Quantity</th>
+                                            <th>Total Price</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        
+                                    <?php
+                                    while($row = mysqli_fetch_array($result))
+                                    {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $row[0]; ?></td>
+                                                <td><?php echo $row[1]; ?></td>
+                                                <td><?php echo $row[2]; ?></td>
+                                                <td><?php echo $row[3]; ?></td>
+                                                <td><button class="btn btn-primary toggledetail">Expand</button></td>
+                                            </tr>
+                                            <tr style="display: none;" class="headdetail">
+                                                <td colspan="5">
+                                                    
+                                        <?php
+                                        $query1 = "select A.*,B.head_id,B.product_name,B.quantity,B.price,B.peritempreice from producthead as A inner join orders as B on A.id = B.head_id where user_id='".$_SESSION['user']."' and A.id='".$row[0]."'";
+                                        $result2 = mysqli_query($conn,$query1);
+                                        if($result2)
+                                        {
+                                            echo "<table class='table tobeprinted'>
+                                                    <tr class='hiddenrows'>
+                                                        <th>Order ID</th>
+                                                        <th>Date</th>
+                                                        <th>Total Quantity</th>
+                                                        <th>Total Price</th>
+                                                    </tr>
+                                                    <tr class='hiddenrows'>
+                                                        <td>$row[0]</td>
+                                                        <td>$row[1]</td>
+                                                        <td>$row[2]</td>
+                                                        <td>$row[3]</td>
+                                                    </tr>
+                                                    <tr class='hiddenrows' align='center'>
+                                                        <td align='center' colspan='4'>
+                                                            <h3>Description</h3>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Product Quanity</th>
+                                                        <th>Price per item</th>
+                                                        <th>Sub total</th>
+                                                    </tr>
+                                            ";
+                                            while($row1 = mysqli_fetch_array($result2))
+                                            {
+
+                                                ?>
+                                                    
+                                                    <tr>
+                                                        <td><?php echo $row1[4]; ?></td>
+                                                        <td><?php echo $row1[5]; ?></td>
+                                                        <td><?php echo $row1[7]; ?></td>
+                                                        <td><?php echo $row1[6]; ?></td>
+                                                    </tr>
+
+                                                <?php
+                                            }
+                                            echo "
+                                                    <tr>
+                                                        <td align='center' colspan='4'>
+                                                            <button align='center' class='print btn btn-primary'>Print</button>
+                                                        </td> 
+                                                    </tr></table></td></tr>";
+
+                                        }
+                                        else
+                                        {
+                                            echo mysqli_error($conn);
+                                        }
+                                    }
+                                    ?></table><?php
+                                }
+                                else
+                                {
+                                    echo mysqli_error($conn);
+                                }
+                            }
+                            else
+                            {
+                                echo "Error - ".mysqli_error($conn);
+                            }
+                        
+                        ?>
+                    </div>
                 </div>
-                <div align="center" class="col-md-3">
-                    <button onclick="location.href='cart.php?page=1'" class='btn btn-primary btn-lg'>BACK TO CART</button>
-                    <br>
-                    <br>
-                    <br>
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <div class='row'>
+                        <h2>User information</h2>
+                    </div>
+                    <div class="row">
+                        <table class="table table-hover table-striped">
+                            <?php
+
+                                if($conn)
+                                {
+                                    $user_id = $_SESSION['user'];
+                                    $query = "select * from login2 where user_id = '".$_SESSION['user']."'";
+                                    $result = mysqli_query($conn,$query);
+                                    if($result)
+                                    {
+                                        $row = mysqli_fetch_array($result);
+                                        echo "<tr>
+                                                <td>User ID :  </td>
+                                                <td>$row[1]</td>
+                                                <td><a class='glyphicon glyphicon-edit' style='cursor : pointer;text-decoration:none;'></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Password : </td>
+                                                <td id='passs'>"; 
+                                                        for($i=0;$i<strlen($row[2]);$i++)
+                                                        {
+                                                            echo "*";
+                                                        }
+
+                                                echo"<span> <a onclick='reveal()' style='cursor : pointer; text-decoration: none;' class='glyphicon glyphicon-pencil'></a></span></td>
+                                                <td><a class='glyphicon glyphicon-edit' style='cursor : pointer;text-decoration:none;'></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address : </td>
+                                                <td>$row[6]</td>
+                                                <td><a class='glyphicon glyphicon-edit' style='cursor : pointer;text-decoration:none;'></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>City : </td>
+                                                <td>$row[7]</td>
+                                                <td><a class='glyphicon glyphicon-edit' style='cursor : pointer;text-decoration:none;'></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td>State : </td>
+                                                <td>$row[8]</td>
+                                                <td><a class='glyphicon glyphicon-edit' style='cursor : pointer;text-decoration:none;'></a></td>
+                                            </tr>";
+                                    }
+                                }
+                                else
+                                {
+                                    echo "Error - ".mysqli_error($conn);
+                                }
+
+                            ?>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id='body' class='container'>
-        <div class='row'>
-        <?php
-
-            if($conn)
-            {
-                $query = "select A.invid,A.username,A.amount,IF(sum(B.amountpaid) IS NOT NULL, sum(B.amountpaid),0) as totalpaid,IF((A.amount-(sum(B.amountpaid))) IS NOT NULL,(A.amount-(sum(B.amountpaid))),A.amount) as ramaining from invoice as A left join invoicedetails as B on A.invid=B.invid where A.username='".$_GET['k']."' group by A.invid";
-                $result = mysqli_query($conn,$query);
-                if($result)
-                {
-                    echo "<div style='border:2px solid black;' class='col-md-8 col-md-offset-2'><h2 align='center'>All Invoices</h2><table id='scrolltable' class='table table-hover table-striped' cellpadding='10px;' border='1' style='border-collapse:collapse;'>
-                            <tr>
-                                <th>Invoice ID</th>
-                                <th>UserID</th>
-                                <th>Total Amount</th>
-                                <th>Amount Paid</th>
-                                <th>Remaining</th>
-                            </tr>";
-                while($row = mysqli_fetch_array($result))
-                {
-                        echo "<tr>
-                                <td>".$row[0]."</td>
-                                <td>".$row[1]."</td>
-                                <td>".$row[2]."</td>
-                                <td>".$row[3]."</td>
-                                <td>".$row[4]."</td>
-                            </tr>";
-                }
-                echo "</table></div></div><br><br>";
-                }
-                $query2 = "select A.invid,IFNULL(B.amountpaid,0),IFNULL(B.depositdate,0),B.mode from invoice as A left join invoicedetails as B on A.invid=B.invid where A.username='".$_GET['k']."'";
-                $result2 = mysqli_query($conn,$query2);
-                if($result2)
-                {
-                    echo"<div class='row'><div style='border:2px solid black;' class='col-md-offset-2 col-md-8'><h2 align='center'>Details of invoices</h2><table id='scrolltable' class='table table-striped table-hover' cellpadding='10px;' border='1' style='border-collapse:collapse;'>
-                            <tr>
-                                <th>Invoice ID</th>
-                                <th>Amount Paid</th>
-                                <th>Deposit Date</th>
-                                <th>Mode of payment</th>
-                            </tr>";
-                while($row2 = mysqli_fetch_array($result2))
-                {
-                        echo "<tr>
-                                <td>".$row2[0]."</td>
-                                <td>".$row2[1]."</td>
-                                <td>".$row2[2]."</td>
-                                <td>".$row2[3]."</td>
-                            </tr>";
-                }
-                echo "</table></div></div></div>";
-                }
-                else{
-                    echo mysqli_error($conn);
-                }
-            }
-            else
-            {
-                echo "Error - ".mysqli_error($conn);
-            }
-        
-        ?>
     <?php 
 
         include 'footer.php';
@@ -115,11 +214,34 @@
     ?>
     </body>
     <script>
-        $(".print").click(function()
+        $(document).ready(function()
         {
-            $("#body").printThis({
+            $(".hiddenrows").hide();
+        });
+
+        $(".print").click(function()
+        {  
+            $(this).closest('table.tobeprinted').find('tr').show();
+            $(this).closest('table.tobeprinted').printThis({
                 pageTitle: "Invoice Details"
             });
         });
+
+        $(".toggledetail").unbind().click(function()
+        {
+            $(this).closest('tr').next('tr').toggle();
+            if($(this).html()=="Expand")
+            {
+                $(this).html("Minimize");   
+            }   
+            else
+            {
+                $(this).html("Expand");
+            }
+        });
+        function reveal()
+        {
+            var a = $("#passs").text('<?php echo(strval($row[2]));?>');
+        }
     </script>
 </html>

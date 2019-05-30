@@ -12,7 +12,6 @@
 		<ul class="nav navbar-nav">
 			<li><a href="#"></a></li>
 			<li><a href="#"></a></li>
-			<li><a href="#"></a></li>
 			<li class="dropdown">
 				<a class="btn btn-primary btn-sm dropdown-toggle" style="color: white; padding: 8px; margin-top:6px;" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-gift"></span>&nbsp;Categories 
 				<span class="caret"></span></a>
@@ -38,7 +37,7 @@
 
 			if(isset($_SESSION['user']))
 			{
-				echo "<li><p class='h3' style='color:white;' align='center'>Welcome to your dashboard, ".$_SESSION['user']."</p></li>";
+				echo "<li><p class='h3' style='color:white;' align='center'>".ucfirst($_SESSION['user']). " 's Dashboard</p></li>";
 			} 
 
 			?>

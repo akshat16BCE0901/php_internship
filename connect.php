@@ -1,4 +1,5 @@
-<?php $servername = "localhost";
+<?php 
+$servername = "localhost";
 $username = "root";
 $password= "";
 $database = "shopping";

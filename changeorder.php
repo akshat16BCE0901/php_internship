@@ -105,18 +105,18 @@
 		if(conf)
 		{
 			var id = $(this).closest('tr').find("td:eq(0)").text();
+			var newquantity = $(this).closest('tr').find("td:eq(3)").find("button.qqq").text();
 		    $.ajax({
 				type: "POST",
 				url: 'removeitem.php',
 				data: {
 					
+					quantity : newquantity,
 					id : id
 
 				},
 				success: function(data)
 				{
-					console.log(data);
-					alert(data);
 					document.location.reload();
 				}
 			});
@@ -146,7 +146,10 @@
 			},
 			success: function(data)
 			{
-				console.log(data);
+				if(data!="Updated")
+				{
+					alert(data);
+				}
 				document.location.reload();
 			}
 		});
@@ -170,6 +173,7 @@
 			url: 'change.php',
 			data: {
 				
+				minus : "sorted",
 				id : id,
 				newquantity : newquantity,
 				newprice : newprice
@@ -177,7 +181,10 @@
 			},
 			success: function(data)
 			{
-				console.log(data);
+				if(data!="Updated")
+				{
+					alert(data);
+				}
 				document.location.reload();
 			}
 		});

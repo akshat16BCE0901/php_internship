@@ -10,10 +10,40 @@
 	if($conn)
 	{
 		$id= $_POST['id'];
+		$quantity = $_POST['quantity'];
+		$query4 = "select productid from productdetails where id=$id";
+		$r = mysqli_query($conn,$query4);
+        if($r)
+        {
+            $row = mysqli_fetch_array($r);
+            $pid = $row[0];
+        }
 		$query = "DELETE from `productdetails` WHERE `id`=".$id;
 		if(mysqli_query($conn,$query))
 		{
-			echo "Item removed";
+			$query1 = "select quantity from products where id=$pid";
+            $r = mysqli_query($conn,$query1);
+            if($r)
+            {
+                $row = mysqli_fetch_array($r);
+                $quan = $row[0];
+                $quanleft = $quan+$quantity;
+                $quer = "UPDATE products set `quantity`=$quanleft where `id`=$pid";
+                echo "$quer";
+                $res = mysqli_query($conn,$quer);
+                if($res)
+                {
+                    echo "Item removed";
+                }
+                else
+                {
+                    echo mysqli_error($conn);
+                }
+            }
+            else
+            {
+                echo mysqli_error($conn);
+            }
 		}
 		else
 		{

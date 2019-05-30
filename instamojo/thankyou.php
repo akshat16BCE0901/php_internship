@@ -12,7 +12,7 @@
     {
       while($row = mysqli_fetch_array($result))
       {
-        $query1 = "INSERT INTO `orders`(`head_id`, `productid`, `imagelink`, `product_name`, `quantity`, `price`, `peritempreice`) VALUES ('".$row[1]."',".$row[2].",'".$row[3]."','".$row[4]."',".$row[5].",".$row[6].",".$row[7].")";
+        $query1 = "INSERT INTO `orders`(`head_id`, `productid`, `imagelink`, `product_name`, `quantity`, `price`, `peritempreice`,`vendor_name`) VALUES ('".$row[1]."',".$row[2].",'".$row[3]."','".$row[4]."',".$row[5].",".$row[6].",".$row[7].",'".$row[8]."')";
         $query2 = "delete from `productdetails` where id=".$row[0];
         mysqli_query($conn,$query1);
         mysqli_query($conn,$query2);

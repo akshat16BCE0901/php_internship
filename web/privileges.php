@@ -14,7 +14,7 @@
 							<td><select id="adminname">
 								<?php 
 
-									$query = "select id,user_id from login2 where `role`='admin'";
+									$query = "select id,user_id from login2 where `role`='admin' or `role`='vendor'";
 									$result = mysqli_query($conn,$query);
 									if($result)
 									{

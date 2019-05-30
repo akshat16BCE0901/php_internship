@@ -294,7 +294,23 @@
 							<td><h4>Confirm password </h4></td>
 							<td><input required="required" type="password" name="confirmpass"></td>
 						</tr>
-						<tr>
+                        <tr>
+                            <td><h4>Enter your address</h4></td>
+                            <td><input required="required" type="text" name="address"></td>
+                        </tr>
+                        <tr>
+                            <td><h4>City</h4></td>
+                            <td><input required="required" type="text" name="city"></td>
+                        </tr>
+                        <tr>
+                            <td><h4>State</h4></td>
+                            <td><input required="required" type="text" name="state"></td>
+                        </tr>
+                        <tr>
+                            <td><input type="radio" name="role" value="customer"><p style="font-size:14 px;">Customer</p></td>
+                            <td><input type="radio" name="role" value="vendor"><p style="font-size:14 px;">Vendor</p></td>
+                        </tr>
+                        <tr>                            
 							<td><h4>Upload Profile Picture</h4></td>
 							<td><input type="file" name="image"></td>
 						</tr>

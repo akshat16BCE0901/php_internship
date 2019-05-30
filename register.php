@@ -7,6 +7,14 @@
 	$pass = trim($pass);
 	$confirm  = $_POST['confirmpass'];	
 	$confirm = trim($confirm);
+    $address=$_POST['address'];
+    $address=trim($address);
+    $city=$_POST['city'];
+    $city=trim($city);
+    $state=$_POST['state'];
+    $state=trim($state);
+    $role=$_POST['role'];
+    $role=trim($role);
 	$conn = mysqli_connect($servername,$username,$password,$database);
 	if($conn)
 	{
@@ -22,7 +30,7 @@
 			}
 			else
 			{
-				$query = "insert into login2(user_id,password,cdate,role) values('".$user."','".$pass."','".date("Y-m-d")."','customer')";
+				$query = "insert into login2(user_id,password,cdate,role,address,city,state) values('".$user."','".$pass."','".date("Y-m-d")."','".$role."','".$address."','".$city."','".$state."')";
 				$result = mysqli_query($conn,$query);
 				if($result)
 				{
@@ -52,7 +60,40 @@
 						$newfilename =$user . '.' . end($temp);
 				         move_uploaded_file($file_tmp,"assets/images/profiles/".$newfilename);
 				         echo "Success";
-				         echo '<script>alert("Successfully Registered");location.href="shop.php"</script>';
+				         echo '<script>alert("Successfully Registered");</script>';
+				         if($role=='vendor')
+				         {
+				         	?> 
+				
+								<script type="text/javascript">location.href='web/index.php';</script>
+
+				         	<?php
+				         }
+				         else
+				         {
+				         	if(isset($_SESSION['user']))
+							{
+								$a = 'PRDCTHD'.$_SESSION['user'].date("dmy").date("His").$_SESSION['randnum'];
+								$b = $_SESSION['user'];
+								$c = date("Y-m-d");
+								$q = "INSERT INTO `producthead`(`id`, `user_id`, `entry_date`) VALUES ('".$a."','".$b."','".$c."')";
+
+								if(mysqli_query($conn,$q))
+								{
+									$_SESSION['randnum']++;
+									$_SESSION['prdcthd'] = $a;
+								}
+								else
+								{
+									echo mysqli_error($conn);
+								}
+							}
+				         	?> 
+
+								<script type="text/javascript">window.history.back();</script>
+
+				         	<?php
+				         }
 				      }else{
 				      	echo '<script>alert("'.$errors[0].'");location.href="index.php"</script>';
 
@@ -60,7 +101,40 @@
 				    }
 				    else
 				    {
-				    	echo '<script>alert("Successfully Registered");location.href="index.php"</script>';
+				    	echo '<script>alert("Successfully Registered");';
+				    	if($role=='vendor')
+				         {
+				         	?> 
+
+								<script type="text/javascript">location.href='web/index.php';</script>
+
+				         	<?php
+				         }
+				         else
+				         {
+				         	if(isset($_SESSION['user']))
+							{
+								$a = 'PRDCTHD'.$_SESSION['user'].date("dmy").date("His").$_SESSION['randnum'];
+								$b = $_SESSION['user'];
+								$c = date("Y-m-d");
+								$q = "INSERT INTO `producthead`(`id`, `user_id`, `entry_date`) VALUES ('".$a."','".$b."','".$c."')";
+
+								if(mysqli_query($conn,$q))
+								{
+									$_SESSION['randnum']++;
+									$_SESSION['prdcthd'] = $a;
+								}
+								else
+								{
+									echo mysqli_error($conn);
+								}
+							}
+				         	?> 
+								
+								<script type="text/javascript">window.history(-1);</script>
+
+				         	<?php
+				         }
 				    }
 					
 				}

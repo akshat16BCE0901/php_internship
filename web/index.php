@@ -25,6 +25,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 <script src="js/Chart.js"></script>
 <script src="js/metisMenu.min.js"></script>
 <script src="js/custom.js"></script>
+<script src="../assets/js/printThis.js"></script>
 <link href="css/custom.css" rel="stylesheet">
 <!--//Metis Menu -->
 <style>
