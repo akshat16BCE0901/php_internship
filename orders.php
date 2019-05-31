@@ -42,7 +42,10 @@
 			table
 			{
 				border: 2px solid black;
+				width: 100%;
 				border-radius: 10px;
+				overflow-x: scroll;
+				overflow-y: scroll;
 			}
 			.pgnum
 			{
@@ -60,10 +63,13 @@
 		</style>
 	</head>
 	<body>
-		<?php include 'navbar.php'; ?>
+		<div class="container-fluid">
+			<?php include 'navbar.php'; ?>
+		</div>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-md-offset-2 col-md-8">
+				<div class="col-md-2"></div>
+				<div style="overflow: scroll;" class="col-md-8">
 						
 
 						<?php
@@ -86,53 +92,50 @@
 								$count = $rr[0];
 							}
 							?> 
+							<table id="dynamictable" class="table table-hover table-striped">
+								<tr>
+									<th>&nbsp;</th>
+									<th>Product Name</th>
+									<th>Product Price</th>
+									<th>Product Quantity</th>
+									<th>Subtotal</th>
+									<th>Date of Shopping</th>
 
-							<div>
-								<table id="dynamictable" class="table table-hover table-striped">
-									<tr>
-										<th style="width: 20%;">&nbsp;</th>
-										<th style="width: 25%;">Product Name</th>
-										<th style="width: 10%;">Product Price</th>
-										<th style="width: 10%;">Product Quantity</th>
-										<th style="width: 15%;">Subtotal</th>
-										<th style="width: 20%;">Date of Shopping</th>
+								</tr>
+								<?php
 
-									</tr>
-									<?php
-
-										if($conn)
+									if($conn)
+									{
+										$user_id = $_SESSION['user'];
+										$query = "select B.*,A.entry_date from producthead as A inner join orders as B on A.id=B.head_id where A.user_id='".$user_id."' limit $page1,3	";
+										$result = mysqli_query($conn,$query);
+										if($result)
 										{
-											$user_id = $_SESSION['user'];
-											$query = "select B.*,A.entry_date from producthead as A inner join orders as B on A.id=B.head_id where A.user_id='".$user_id."' limit $page1,3	";
-											$result = mysqli_query($conn,$query);
-											if($result)
+											while($row = mysqli_fetch_array($result))
 											{
-												while($row = mysqli_fetch_array($result))
-												{
-													
-													echo "<tr class='selectorclass'>
-															<td style='width:20%;'><img style='max-height:110px; width: auto;' src='$row[3]' alt='productImage' /></td>
-															<td style='width:25%;'>$row[4]</td>
-															<td style='width:10%;'>$row[7]</td>
-															<td style='width:10%;'>$row[5]</td>
-															<td style='width:15%;'>$row[6]</td>
-															<td style='width:20%;'>$row[9]</td>
-														</tr>";
-												}
-											}
-											else
-											{
-												echo "No orders found";
+												
+												echo "<tr class='selectorclass'>
+														<td><img style='max-height:110px; width: auto;' src='$row[3]' alt='productImage' /></td>
+														<td>$row[4]</td>
+														<td>$row[7]</td>
+														<td>$row[5]</td>
+														<td>$row[6]</td>
+														<td>$row[9]</td>
+													</tr>";
 											}
 										}
 										else
 										{
-											echo "Error - ".mysqli_error($conn);
+											echo "No orders found";
 										}
+									}
+									else
+									{
+										echo "Error - ".mysqli_error($conn);
+									}
 
-									?>
-								</table>
-							</div>
+								?>
+							</table>
 
 							<?php 
 
@@ -140,6 +143,7 @@
 
 						?>
 				</div>
+				<div class="col-md-2"></div>
 			</div>
 			<div align="center" class="text-center row">
 				<?php 
@@ -151,11 +155,10 @@
 			
 			<?php 
 
-        include 'footer.php';
+        		include 'footer.php';
 
-    ?>
+    		?>
 		</div>
-		
 		
 	</body>
 </html>

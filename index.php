@@ -44,14 +44,12 @@
 				padding: 10px;
 				border: 2px solid black;
 				border-radius: 10px;
-				background-color: #c5f2b0;
 			}
 			#logindiv
 			{
 				padding: 10px;
 				border: 2px solid black;
 				border-radius: 10px;
-				background: #c2d3ef;
 			}
 			.row
 			{
@@ -268,7 +266,7 @@
 
 
 
-	<div id="myModal" class="modal fade" role="dialog">
+	<div style="overflow: scroll;" id="myModal" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
 	    <!-- Modal content-->
@@ -281,10 +279,20 @@
 	      	<div id="registerdiv">
 				
 				<form action='register.php' method="post" enctype="multipart/form-data">
-					<table class="table table-striped table-hover">
+					<div style="overflow: scroll;">
+					<table style="overflow: scroll;" class="table table-striped table-hover">
 						<tr>
-							<td><h4>Enter user ID </h4></td>
-							<td><input required="required" type="text" name="user_id"></td>
+							<td><h4>Choose Username :  </h4></td>
+							<td><input id="keyupfield" placeholder="(Maximum 10 characters)" maxlength="10" required="required" type="text" name="user_id"><span id="spanninguser"></span></td>
+						</tr>
+						<tr>
+							<td colspan="2"><div class="suggestions">
+								
+							</div></td>
+						</tr>
+						<tr>
+							<td><h4>Enter email</h4></td>
+							<td><input required="required" type="email" name="email"></td>
 						</tr>
 						<tr>
 							<td><h4>Enter password </h4></td>
@@ -307,8 +315,8 @@
                             <td><input required="required" type="text" name="state"></td>
                         </tr>
                         <tr>
-                            <td><input type="radio" name="role" value="customer"><p style="font-size:14 px;">Customer</p></td>
-                            <td><input type="radio" name="role" value="vendor"><p style="font-size:14 px;">Vendor</p></td>
+                            <td><input type="radio" name="role" value="customer">  Customer</td>
+                            <td><input type="radio" name="role" value="vendor"> Vendor</td>
                         </tr>
                         <tr>                            
 							<td><h4>Upload Profile Picture</h4></td>
@@ -319,6 +327,7 @@
 							<td class="text-center"><button class="btn btn-primary" type="reset">RESET</button></td>
 						</tr>
 					</table>
+				</div>
 				</form>
 			</div>
 	      </div>
@@ -332,7 +341,7 @@
 
 
 
-	<div id="myModal1" class="modal fade" role="dialog">
+	<div style="overflow: scroll;" id="myModal1" class="modal fade" role="dialog">
 	  <div class="modal-dialog">
 
 	    <!-- Modal content-->
@@ -345,7 +354,8 @@
 	      	<div id="registerdiv">
 				
 				<form action='login.php' method="post">
-					<table class="table table-striped table-hover">
+					<div style="overflow: scroll;">
+					<table style="overflow: scroll;" class="table table-striped table-hover">
 						<tr>
 							<td><h4>Enter user ID </h4></td>
 							<td><input required="required" type="text" name="user_id"></td>
@@ -359,6 +369,7 @@
 							<td class="text-center"><button class="btn btn-primary" type="reset">RESET</button></td>
 						</tr>
 					</table>
+				</div>
 				</form>
 			</div>
 	      </div>
@@ -370,4 +381,33 @@
 	  </div>
 	</div>
 	</body>
+	<script type="text/javascript">
+		$("#keyupfield").on('keyup',function()
+		{
+			$.ajax({
+		      type: "POST",
+		      url: 'validateusername.php',
+		      data: {
+
+		      	uname : $(this).val()
+		      },
+		      success: function(data)
+		      {
+		      	$("#spanninguser").html(data);
+		      }
+		    });
+	    	$.ajax({
+		      type: "POST",
+		      url: 'suggestusernames.php',
+		      data: {
+
+		      	uname : $(this).val()
+		      },
+		      success: function(data)
+		      {
+		      	$(".suggestions").html(data);
+		      }
+		    });
+		});
+	</script>
 </html>

@@ -64,10 +64,11 @@
 
 								?>
 								<p class="lead">Price : Rs. <?php echo($row1[3]); ?></p>
-								<caption><a  class="anchor-color"><?php echo($row1[1]); ?></a></caption><br>
+								<caption><a class="anchor-color" ><?php echo($row1[1]); ?></a></caption><br>
+								<caption><a style="color: black;">Quantity available - <?php echo($row1[8]); ?></a></caption><br>
 								<caption><a style="color: black;"><?php echo($row1[2]); ?></a></caption><br>
 								<caption><a style="color: black;">By - <?php echo(ucwords($row1[7])); ?></a></caption><br><br>
-								<div style="display:inline;" class="col-6">Quantity : <input style="max-width: 50px; height: 30px;" value="1" min="1" type="number" name="quan"></div>&nbsp;&nbsp;&nbsp;&nbsp;
+								<div style="display:inline;" class="col-6">Quantity : <input style="max-width: 50px; height: 30px;" value="1" min="1" max="<?php echo($row1[8]); ?>" type="number" name="quan"></div>&nbsp;&nbsp;&nbsp;&nbsp;
 								<div align="center" style="display:inline;" class="col-6"><button pid='<?php echo($row1[0]); ?>' pname='<?php echo($row1[1]); ?>' vendor='<?php echo($row1[7]); ?>' imglink='<?php echo($row1[5]); ?>' price='<?php echo($row1[3]); ?>' class="addproduct btn btn-sm btn-primary">Add to cart</button></div>
 								
 							</div>

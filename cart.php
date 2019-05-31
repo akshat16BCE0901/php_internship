@@ -43,6 +43,7 @@
 			{
 				border: 2px solid black;
 				border-radius: 10px;
+				overflow-x: scroll;
 			}
 			.pgnum
 			{
@@ -55,7 +56,6 @@
 			body
 			{
 				margin-top: 80px;
-
 			}
 		</style>
 	</head>

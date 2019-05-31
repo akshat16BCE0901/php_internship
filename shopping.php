@@ -152,7 +152,7 @@
 							<table class="table table-striped table-hover">
 								<tr>
 									<td><h4>Enter user ID </h4></td>
-									<td><input required="required" type="text" name="user_id"></td>
+									<td><input id="keyupfield" required="required" type="text" name="user_id"><span id="spanninguser"></span></td>
 								</tr>
 								<tr>
 									<td><h4>Enter password </h4></td>
@@ -319,5 +319,22 @@
 			});
 		});
 		
+	</script>
+	<script type="text/javascript">
+		$("#keyupfield").on('keyup',function()
+		{
+			$.ajax({
+		      type: "POST",
+		      url: 'validateusername.php',
+		      data: {
+
+		      	uname : $(this).val()
+		      },
+		      success: function(data)
+		      {
+		      	$("#spanninguser").html(data);
+		      }
+		    });
+		});
 	</script>
 </html>

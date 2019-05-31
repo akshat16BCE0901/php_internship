@@ -1,4 +1,4 @@
-<div>
+<div style="overflow: scroll;">
 	<table id="dynamictable" class="table table-hover table-striped">
 		<tr>
 			<th class="text-center" colspan="6">
@@ -53,7 +53,14 @@
 								<td style='width:10%;'>$row[0]</td>
 								<td style='width:20%;'><img style='max-height:110px; width: auto;' src='$row[3]' alt='productImage' /></td>
 								<td style='width:25%;'>$row[4]</td>
-								<td style='width:15%;'><div class='btn-group'><button class='minusone btn btn-sm btn-primary'>-</button><button style='background-color:white;color:black;' class='qqq btn btn-primary btn-sm'>$row[5]</button><button class='plusone btn btn-sm btn-primary'>+</button></div></td>
+								<td style='width:15%;'><div class='btn-group'><button ";
+
+								if($row[5]==1)
+								{
+									echo " disabled ";
+								}
+
+								echo " class='minusone btn btn-sm btn-primary'>-</button><button style='background-color:white;color:black;' class='qqq btn btn-primary btn-sm'>$row[5]</button><button class='plusone btn btn-sm btn-primary'>+</button></div></td>
 								<td style='width:10%;'>$row[7]</td>
 								<td style='width:20%;'><div class='btn-group'><button class='btn finalremove btn-danger btn-sm'>Remove</button></div></td>
 							</tr>";
