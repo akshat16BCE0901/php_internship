@@ -55,8 +55,14 @@
 		</div>
 
 		<div class="bs-example table-responsive widget-shadow" data-example-id="bordered-table"> 
-			<div align="center">
-				<h2>Enter product details</h2><br><br>
+			<div>
+				<h2 style="display: inline-block;">Products bulk Entry&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+				<div style="display: inline-block;">
+
+					<h5 style="font-size: 16px;"><a href="../assets/documents/productbulk.csv" download>Download Bulk Entry CSV Format from here</a></h5>
+					<h5 style="font-size: 16px;"><a href="../assets/documents/subcategories.csv" download>Download Subcategories ID (For CSV field) from here</a></h5>
+				</div>
+				<br><br>
 			</div>
 			<div>
 				<form method="post" action="uploadcsv.php" enctype="multipart/form-data">

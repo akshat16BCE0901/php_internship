@@ -7,7 +7,7 @@
 			<div class="tables">
 				
 				<div class="bs-example table-responsive widget-shadow" data-example-id="bordered-table"> 
-					<h4 style="display: inline-block;">Adjust Privileges</h4> <button style="float: right;" class="btn btn-primary">_</button>
+					<h4 style="display: inline-block;">Adjust Privileges</h4>
 					<table class="table table-striped table-hover">
 						<tr>
 							<td>Select Admin Name - </td>
@@ -50,7 +50,7 @@
 		$.ajax({
 
 			type : 'POST',
-			url : 'showprivbody.php',
+			url : 'showprivbody.php?page=1',
 			data : {
 				
 				id : $("#adminname").val(),

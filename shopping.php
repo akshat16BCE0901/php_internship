@@ -250,7 +250,7 @@
 				location.href="index.php";
 			}
 		}
-
+		
 		$(document).on("click",".addproduct",function()
 		{
 			var id = $(this).attr("pid");
@@ -267,7 +267,7 @@
 
 					image : imglink,
 					productid : id,
-					headid : "<?php echo($_SESSION['prdcthd']); ?>",
+					headid : "<?php if(isset($_SESSION['prdcthd'])) echo($_SESSION['prdcthd']); ?>",
 					productname : pname,
 					productquantity : parseInt(quantity),
 					perprice : parseFloat(pp),

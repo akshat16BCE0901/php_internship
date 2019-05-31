@@ -92,8 +92,9 @@
 									<tr>
 										<th style="width: 20%;">&nbsp;</th>
 										<th style="width: 25%;">Product Name</th>
-										<th style="width: 15%;">Product Quanity</th>
 										<th style="width: 10%;">Product Price</th>
+										<th style="width: 10%;">Product Quantity</th>
+										<th style="width: 15%;">Subtotal</th>
 										<th style="width: 20%;">Date of Shopping</th>
 
 									</tr>
@@ -112,9 +113,10 @@
 													echo "<tr class='selectorclass'>
 															<td style='width:20%;'><img style='max-height:110px; width: auto;' src='$row[3]' alt='productImage' /></td>
 															<td style='width:25%;'>$row[4]</td>
-															<td style='width:15%;'>$row[5]</td>
 															<td style='width:10%;'>$row[7]</td>
-															<td style='width:20%;'>$row[8]</td>
+															<td style='width:10%;'>$row[5]</td>
+															<td style='width:15%;'>$row[6]</td>
+															<td style='width:20%;'>$row[9]</td>
 														</tr>";
 												}
 											}

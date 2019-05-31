@@ -155,7 +155,7 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 						</li>
 						<li class="dropdown head-dpdn">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-bell"></i><span class="badge blue">4</span></a>
-							<ul class="dropdown-menu">
+							<ul style="padding  : 0px;" class="dropdown-menu">
 								<li>
 									<div class="notification_header">
 										<h3>You have 3 new notification</h3>
@@ -776,46 +776,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 	$(document).ready(function()
 	{
 
-		$(".delete").click(function()
-		{
-			var a = confirm("Are you sure want to delete. The action cannot be undone !!!");
-			if(a)
-			{
-				var row = $(this).closest('tr');
-				var column = row.find('td');
-				var oid = column.eq(0).text();
-				console.log(oid);
-				$.ajax({
-
-		            type : 'POST',
-		            url : 'deleteuser.php',
-		            data : {
-
-		            	id : oid
-
-		            },
-		            success : function(data)
-		            {
-		              $.ajax({
-
-				            type : 'POST',
-				            url : 'adduser.php?page=<?php echo($pageno) ?>',
-				            data : {
-
-				            },
-				            success : function(data)
-				            {
-				              $("#page-wrapper").html(data);
-				            }
-
-			          	});
-		            }
-
-	          	});
-			}
-		});
-
-
 		$(".edit").click(function()
 		{
 			$(".editmode").css("display","none");
@@ -832,47 +792,6 @@ SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony
 			$("#old_password").html(opass);
 			$("#oldisactive").val(oisactive);
 			$("#oldisadmin").val(oisadmin);
-		});
-		
-		$(".finalchange").click(function()
-		{
-			$(".editmode").css("display","none");
-			$(".updatemode").css("display","block");
-			var id =  $("#oldid").html();
-			var newactive = $("#oldisactive").val();
-			var newadmin = $("#oldisadmin").val();
-			var newdate = $("#oldcdate").val();
-			$.ajax({
-
-	            type : 'POST',
-	            url : 'updateuser.php',
-	            data : {
-
-	            	id : id,
-	            	newactive : newactive,
-	            	newadmin  : newadmin,
-	            	newdate : newdate
-
-	            },
-	            success : function(data)
-	            {
-	              $.ajax({
-
-			            type : 'POST',
-			            url : 'adduser.php?page=<?php echo($pageno) ?>',
-			            data : {
-
-			            },
-			            success : function(data)
-			            {
-			              $("#page-wrapper").html(data);
-			            }
-
-		          	});
-	            }
-
-          	});
-
 		});
 
 		$(".pgnum").click(function()

@@ -63,7 +63,7 @@
          $rr = mysqli_query($conn,$query2);
          if($rr)
          {
-         	echo "<script>alert('Uploaded');location.href='index.php'</script>";
+         	echo "<script>alert('Uploaded');windows.history.back();</script>";
          }
          else
          {

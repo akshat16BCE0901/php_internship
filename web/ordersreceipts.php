@@ -21,7 +21,7 @@
 				</tr>
 				<?php
 					$offset= ($pageno*3) - 3;
-					$rowcount = "select count(distinct head_id) from orders";
+					$rowcount = "select count(distinct head_id) from orders where vendor_name='".$_SESSION['user']."'";
 					$tt= mysqli_query($conn,$rowcount);
 					if($tt)
 					{
