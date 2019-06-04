@@ -147,47 +147,57 @@
 			      </div>
 			      <div class="modal-body">
 			      	<div id="registerdiv">
-						
 						<form action='register.php' method="post" enctype="multipart/form-data">
-							<table class="table table-striped table-hover">
-								<tr>
-									<td><h4>Enter user ID </h4></td>
-									<td><input id="keyupfield" required="required" type="text" name="user_id"><span id="spanninguser"></span></td>
-								</tr>
-								<tr>
-									<td><h4>Enter password </h4></td>
-									<td><input required="required" type="password" name="password"></td>
-								</tr>
-								<tr>
-									<td><h4>Confirm password </h4></td>
-									<td><input required="required" type="password" name="confirmpass"></td>
-								</tr>
-		                        <tr>
-		                            <td><h4>Enter your address</h4></td>
-		                            <td><input required="required" type="text" name="address"></td>
-		                        </tr>
-		                        <tr>
-		                            <td><h4>City</h4></td>
-		                            <td><input required="required" type="text" name="city"></td>
-		                        </tr>
-		                        <tr>
-		                            <td><h4>State</h4></td>
-		                            <td><input required="required" type="text" name="state"></td>
-		                        </tr>
-		                        <tr>
-		                            <td><input type="radio" name="role" value="customer"><p style="font-size:14 px;">Customer</p></td>
-		                            <td><input type="radio" name="role" value="vendor"><p style="font-size:14 px;">Vendor</p></td>
-		                        </tr>
-		                        <tr>                            
-									<td><h4>Upload Profile Picture</h4></td>
-									<td><input type="file" name="image"></td>
-								</tr>
-								<tr>
-									<td class="text-center"><button class="btn btn-primary" type="submit">SUBMIT</button></td>
-									<td class="text-center"><button class="btn btn-primary" type="reset">RESET</button></td>
-								</tr>
-							</table>
-						</form>
+							<div style="overflow: scroll;">
+								<table style="overflow: scroll;" class="table table-striped table-hover">
+									<tr>
+										<td><h4>Choose Username :  </h4></td>
+										<td><input id="keyupfield" placeholder="(Maximum 10 characters)" maxlength="10" required="required" type="text" name="user_id"><span id="spanninguser"></span></td>
+									</tr>
+									<tr>
+										<td colspan="2"><div class="suggestions">
+											
+										</div></td>
+									</tr>
+									<tr>
+										<td><h4>Enter email</h4></td>
+										<td><input required="required" type="email" name="email"></td>
+									</tr>
+									<tr>
+										<td><h4>Enter password </h4></td>
+										<td><input required="required" type="password" name="password"></td>
+									</tr>
+									<tr>
+										<td><h4>Confirm password </h4></td>
+										<td><input required="required" type="password" name="confirmpass"></td>
+									</tr>
+			                        <tr>
+			                            <td><h4>Enter your address</h4></td>
+			                            <td><input required="required" type="text" name="address"></td>
+			                        </tr>
+			                        <tr>
+			                            <td><h4>City</h4></td>
+			                            <td><input required="required" type="text" name="city"></td>
+			                        </tr>
+			                        <tr>
+			                            <td><h4>State</h4></td>
+			                            <td><input required="required" type="text" name="state"></td>
+			                        </tr>
+			                        <tr>
+			                            <td><input type="radio" name="role" value="customer">  Customer</td>
+			                            <td><input type="radio" name="role" value="vendor"> Vendor</td>
+			                        </tr>
+			                        <tr>                            
+										<td><h4>Upload Profile Picture</h4></td>
+										<td><input type="file" name="image"></td>
+									</tr>
+									<tr>
+										<td class="text-center"><button class="btn btn-primary" type="submit">SUBMIT</button></td>
+										<td class="text-center"><button class="btn btn-primary" type="reset">RESET</button></td>
+									</tr>
+								</table>
+							</div>
+						</form>	
 					</div>
 			      </div>
 			      <div class="modal-footer">
@@ -247,7 +257,7 @@
 			if(answer)
 			{
 				alert("Successfully Logged Out!!!");
-				location.href="index.php";
+				location.href="logout.php";
 			}
 		}
 		

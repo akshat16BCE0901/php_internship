@@ -38,7 +38,7 @@
 				}
 				else
 				{
-					$query = "insert into login2(user_id,password,cdate,role,address,city,state) values('".$user."','".$pass."','".date("Y-m-d")."','".$role."','".$address."','".$city."','".$state."')";
+					$query = "insert into login2(user_id,password,cdate,role,address,city,state,email) values('".$user."','".$pass."','".date("Y-m-d")."','".$role."','".$address."','".$city."','".$state."','".$email."')";
 					$result = mysqli_query($conn,$query);
 					if($result)
 					{
